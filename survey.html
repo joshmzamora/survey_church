@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Holy Trinity Catholic Church – Parish Member Survey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        color: #333;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 35px 45px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #555;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        border-left: 6px solid #8b0000;
+        padding-left: 12px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      .page {
+        display: none;
+      }
+
+      .page:target {
+        display: block;
+      }
+
+      .page:first-of-type {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.95rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+
+      textarea {
+        min-height: 90px;
+      }
+
+      .options label {
+        display: block;
+        font-weight: normal;
+        margin-bottom: 8px;
+      }
+
+      .nav-buttons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .nav-buttons a {
+        text-decoration: none;
+        padding: 10px 18px;
+        background: #8b0000;
+        color: white;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .nav-buttons a.secondary {
+        background: #555;
+      }
+
+      /* CONDITIONAL LOGIC */
+      .adult-only,
+      .youth-only {
+        display: none;
+      }
+
+      #age-adult:checked ~ .survey .adult-only {
+        display: block;
+      }
+
+      #age-youth:checked ~ .survey .youth-only {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- AGE LOGIC CONTROLS -->
+    <input type="radio" id="age-adult" name="age" hidden />
+    <input type="radio" id="age-youth" name="age" hidden />
+
+    <div class="survey">
+      <div class="container page" id="page1">
+        <h1>Holy Trinity Catholic Church</h1>
+        <div class="subtitle">
+          Parish Member Survey<br />
+          <small>Your feedback helps our parish family grow.</small>
+        </div>
+
+        <h2>Step 1: About You</h2>
+
+        <div class="form-group">
+          <label>What is your age group?</label>
+          <div class="options">
+            <label
+              ><input
+                type="radio"
+                name="age-select"
+                onclick="document.getElementById('age-adult').checked=true"
+              />
+              18 or older</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="age-select"
+                onclick="document.getElementById('age-youth').checked=true"
+              />
+              Under 18</label
+            >
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <span></span>
+          <a href="#page2">Next</a>
+        </div>
+      </div>
+
+      <!-- PAGE 2 -->
+      <div class="container page" id="page2">
+        <h2>Basic Information</h2>
+
+        <div class="form-group">
+          <label>Full Name(s)</label>
+          <input type="text" />
+        </div>
+
+        <div class="form-group adult-only">
+          <label>Address</label>
+          <input type="text" />
+        </div>
+
+        <div class="form-group adult-only">
+          <label>Phone Number</label>
+          <input type="tel" />
+        </div>
+
+        <div class="form-group adult-only">
+          <label>Email Address</label>
+          <input type="email" />
+        </div>
+
+        <div class="nav-buttons">
+          <a href="#page1" class="secondary">Back</a>
+          <a href="#page3">Next</a>
+        </div>
+      </div>
+
+      <!-- PAGE 3 -->
+      <div class="container page" id="page3">
+        <h2>Sacraments & Faith Journey</h2>
+
+        <div class="form-group adult-only">
+          <label>Sacraments Received</label>
+          <div class="options">
+            <label><input type="checkbox" /> Baptism</label>
+            <label><input type="checkbox" /> First Communion</label>
+            <label><input type="checkbox" /> Confirmation</label>
+            <label><input type="checkbox" /> Marriage (Catholic Church)</label>
+          </div>
+        </div>
+
+        <div class="form-group youth-only">
+          <label>Have you received First Communion?</label>
+          <div class="options">
+            <label><input type="radio" name="fc" /> Yes</label>
+            <label><input type="radio" name="fc" /> Not yet</label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <a href="#page2" class="secondary">Back</a>
+          <a href="#page4">Next</a>
+        </div>
+      </div>
+
+      <!-- PAGE 4 -->
+      <div class="container page" id="page4">
+        <h2>Family, Youth & CCE</h2>
+
+        <div class="form-group adult-only">
+          <label>Do you have children in your household?</label>
+          <div class="options">
+            <label><input type="radio" /> Yes</label>
+            <label><input type="radio" /> No</label>
+          </div>
+        </div>
+
+        <div class="form-group youth-only">
+          <label>Which youth programs interest you?</label>
+          <div class="options">
+            <label><input type="checkbox" /> HSM (High School)</label>
+            <label><input type="checkbox" /> Shine (Junior High)</label>
+            <label><input type="checkbox" /> VBS</label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <a href="#page3" class="secondary">Back</a>
+          <a href="#page5">Next</a>
+        </div>
+      </div>
+
+      <!-- PAGE 5 -->
+      <div class="container page" id="page5">
+        <h2>Feedback & Communication</h2>
+
+        <div class="form-group adult-only">
+          <label>Preferred Communication</label>
+          <div class="options">
+            <label><input type="checkbox" /> Email (Flocknote)</label>
+            <label><input type="checkbox" /> Printed Bulletin</label>
+            <label><input type="checkbox" /> Website</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Suggestions or Prayer Intentions (Optional)</label>
+          <textarea></textarea>
+        </div>
+
+        <div class="nav-buttons">
+          <a href="#page4" class="secondary">Back</a>
+          <a href="#page1">Finish</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
