@@ -2,274 +2,341 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Holy Trinity Catholic Church – Parish Member Survey</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Holy Trinity Parish Survey</title>
 
     <style>
       body {
-        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-        background: #f4f6f8;
+        font-family: "Georgia", serif;
+        background: #f5f4ef;
         margin: 0;
-        color: #333;
+        padding: 0;
       }
 
       .container {
-        max-width: 900px;
+        max-width: 720px;
         margin: 40px auto;
-        background: #fff;
-        padding: 35px 45px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      }
-
-      h1 {
-        text-align: center;
-        color: #2c3e50;
-        margin-bottom: 5px;
-      }
-
-      .subtitle {
-        text-align: center;
-        color: #555;
-        margin-bottom: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        padding: 30px;
+        overflow: hidden;
       }
 
       h2 {
-        border-left: 6px solid #8b0000;
-        padding-left: 12px;
-        color: #2c3e50;
-        margin-bottom: 20px;
+        text-align: center;
+        color: #3b4a3f;
       }
 
       .page {
         display: none;
+        animation: fadeSlide 0.5s ease;
       }
 
-      .page:target {
+      .page.active {
         display: block;
       }
 
-      .page:first-of-type {
-        display: block;
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
       }
 
-      .form-group {
-        margin-bottom: 18px;
+      .question {
+        margin: 18px 0;
       }
 
       label {
-        font-weight: 600;
         display: block;
-        margin-bottom: 6px;
+        margin: 6px 0;
+        cursor: pointer;
       }
 
       input[type="text"],
-      input[type="email"],
-      input[type="tel"],
       textarea {
         width: 100%;
-        padding: 10px;
-        font-size: 0.95rem;
-        border-radius: 4px;
+        padding: 8px;
+        margin-top: 6px;
+        border-radius: 5px;
         border: 1px solid #ccc;
       }
 
-      textarea {
-        min-height: 90px;
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 10px;
+        align-items: center;
       }
 
-      .options label {
-        display: block;
-        font-weight: normal;
-        margin-bottom: 8px;
-      }
-
-      .nav-buttons {
-        margin-top: 30px;
+      .nav {
         display: flex;
         justify-content: space-between;
+        margin-top: 30px;
       }
 
-      .nav-buttons a {
-        text-decoration: none;
-        padding: 10px 18px;
-        background: #8b0000;
+      button {
+        background: #3b4a3f;
         color: white;
-        border-radius: 4px;
-        font-weight: 600;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        cursor: pointer;
       }
 
-      .nav-buttons a.secondary {
-        background: #555;
+      button:hover {
+        background: #2f3c34;
       }
 
-      /* CONDITIONAL LOGIC */
-      .adult-only,
-      .youth-only {
-        display: none;
-      }
-
-      #age-adult:checked ~ .survey .adult-only {
-        display: block;
-      }
-
-      #age-youth:checked ~ .survey .youth-only {
-        display: block;
+      .footer-text {
+        font-style: italic;
+        text-align: center;
+        margin-top: 15px;
+        color: #666;
       }
     </style>
   </head>
 
   <body>
-    <!-- AGE LOGIC CONTROLS -->
-    <input type="radio" id="age-adult" name="age" hidden />
-    <input type="radio" id="age-youth" name="age" hidden />
-
-    <div class="survey">
-      <div class="container page" id="page1">
-        <h1>Holy Trinity Catholic Church</h1>
-        <div class="subtitle">
-          Parish Member Survey<br />
-          <small>Your feedback helps our parish family grow.</small>
-        </div>
-
-        <h2>Step 1: About You</h2>
-
-        <div class="form-group">
-          <label>What is your age group?</label>
-          <div class="options">
-            <label
-              ><input
-                type="radio"
-                name="age-select"
-                onclick="document.getElementById('age-adult').checked=true"
-              />
-              18 or older</label
-            >
-            <label
-              ><input
-                type="radio"
-                name="age-select"
-                onclick="document.getElementById('age-youth').checked=true"
-              />
-              Under 18</label
-            >
-          </div>
-        </div>
-
-        <div class="nav-buttons">
+    <div class="container">
+      <!-- PAGE 0 - WELCOME -->
+      <div class="page active">
+        <h2>Welcome</h2>
+        <p>
+          Welcome to the Holy Trinity Catholic Church Parish Survey. Your
+          feedback helps strengthen our parish family and improve our
+          ministries.
+        </p>
+        <p>This survey takes about 3–5 minutes and is confidential.</p>
+        <p class="footer-text">
+          “For where two or three are gathered in my name, there am I in the
+          midst of them.” – Matthew 18:20
+        </p>
+        <div class="nav">
           <span></span>
-          <a href="#page2">Next</a>
+          <button onclick="nextPage()">Begin</button>
         </div>
       </div>
 
-      <!-- PAGE 2 -->
-      <div class="container page" id="page2">
-        <h2>Basic Information</h2>
+      <!-- PAGE 1 - AGE GROUP -->
+      <div class="page">
+        <h2>Age Group</h2>
 
-        <div class="form-group">
-          <label>Full Name(s)</label>
+        <div class="question">
+          <label
+            ><input type="radio" name="age" value="child" /> Child (0–10)</label
+          >
+          <label
+            ><input type="radio" name="age" value="teen" /> Teen (11–17)</label
+          >
+          <label
+            ><input type="radio" name="age" value="young" /> Young Adult
+            (18–30)</label
+          >
+          <label
+            ><input type="radio" name="age" value="adult" /> Adult
+            (31–59)</label
+          >
+          <label
+            ><input type="radio" name="age" value="senior" /> Senior
+            (60+)</label
+          >
+        </div>
+
+        <div class="nav">
+          <button onclick="prevPage()">Back</button>
+          <button onclick="nextPage()">Next</button>
+        </div>
+      </div>
+
+      <!-- PAGE 2 - AGE SPECIFIC -->
+      <div class="page">
+        <h2>Faith & Participation</h2>
+
+        <!-- CHILD -->
+        <div class="age child">
+          <label>Favorite church activity?</label>
+          <input type="text" />
+          <label>Do you enjoy CCE or VBS?</label>
           <input type="text" />
         </div>
 
-        <div class="form-group adult-only">
-          <label>Address</label>
+        <!-- TEEN -->
+        <div class="age teen">
+          <label>Are you involved in youth group?</label>
           <input type="text" />
-        </div>
-
-        <div class="form-group adult-only">
-          <label>Phone Number</label>
-          <input type="tel" />
-        </div>
-
-        <div class="form-group adult-only">
-          <label>Email Address</label>
-          <input type="email" />
-        </div>
-
-        <div class="nav-buttons">
-          <a href="#page1" class="secondary">Back</a>
-          <a href="#page3">Next</a>
-        </div>
-      </div>
-
-      <!-- PAGE 3 -->
-      <div class="container page" id="page3">
-        <h2>Sacraments & Faith Journey</h2>
-
-        <div class="form-group adult-only">
-          <label>Sacraments Received</label>
-          <div class="options">
-            <label><input type="checkbox" /> Baptism</label>
-            <label><input type="checkbox" /> First Communion</label>
-            <label><input type="checkbox" /> Confirmation</label>
-            <label><input type="checkbox" /> Marriage (Catholic Church)</label>
-          </div>
-        </div>
-
-        <div class="form-group youth-only">
-          <label>Have you received First Communion?</label>
-          <div class="options">
-            <label><input type="radio" name="fc" /> Yes</label>
-            <label><input type="radio" name="fc" /> Not yet</label>
-          </div>
-        </div>
-
-        <div class="nav-buttons">
-          <a href="#page2" class="secondary">Back</a>
-          <a href="#page4">Next</a>
-        </div>
-      </div>
-
-      <!-- PAGE 4 -->
-      <div class="container page" id="page4">
-        <h2>Family, Youth & CCE</h2>
-
-        <div class="form-group adult-only">
-          <label>Do you have children in your household?</label>
-          <div class="options">
-            <label><input type="radio" /> Yes</label>
-            <label><input type="radio" /> No</label>
-          </div>
-        </div>
-
-        <div class="form-group youth-only">
-          <label>Which youth programs interest you?</label>
-          <div class="options">
-            <label><input type="checkbox" /> HSM (High School)</label>
-            <label><input type="checkbox" /> Shine (Junior High)</label>
-            <label><input type="checkbox" /> VBS</label>
-          </div>
-        </div>
-
-        <div class="nav-buttons">
-          <a href="#page3" class="secondary">Back</a>
-          <a href="#page5">Next</a>
-        </div>
-      </div>
-
-      <!-- PAGE 5 -->
-      <div class="container page" id="page5">
-        <h2>Feedback & Communication</h2>
-
-        <div class="form-group adult-only">
-          <label>Preferred Communication</label>
-          <div class="options">
-            <label><input type="checkbox" /> Email (Flocknote)</label>
-            <label><input type="checkbox" /> Printed Bulletin</label>
-            <label><input type="checkbox" /> Website</label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Suggestions or Prayer Intentions (Optional)</label>
+          <label>What would make youth events better?</label>
           <textarea></textarea>
         </div>
 
-        <div class="nav-buttons">
-          <a href="#page4" class="secondary">Back</a>
-          <a href="#page1">Finish</a>
+        <!-- YOUNG ADULT -->
+        <div class="age young">
+          <label>Would you attend young adult Bible studies?</label>
+          <input type="text" />
+          <label>Best time for church events?</label>
+          <input type="text" />
+        </div>
+
+        <!-- ADULT -->
+        <div class="age adult">
+          <label>How often do you attend Mass?</label>
+          <input type="text" />
+          <label>Would you volunteer if time allowed?</label>
+          <input type="text" />
+        </div>
+
+        <!-- SENIOR -->
+        <div class="age senior">
+          <label
+            >Do you participate in prayer groups or service ministries?</label
+          >
+          <input type="text" />
+          <label>Transportation or accessibility needs?</label>
+          <input type="text" />
+        </div>
+
+        <div class="nav">
+          <button onclick="prevPage()">Back</button>
+          <button onclick="nextPage()">Next</button>
+        </div>
+      </div>
+
+      <!-- PAGE 3 - MINISTRY INVOLVEMENT -->
+      <div class="page">
+        <h2>Ministry Involvement</h2>
+
+        <label>Current ministries you serve in:</label>
+        <textarea></textarea>
+
+        <p><strong>Interest Areas</strong></p>
+        <div class="grid">
+          <strong>Ministry</strong><strong>Serve</strong><strong>Learn</strong>
+
+          <span>Liturgy / Mass Support</span><input type="checkbox" /><input
+            type="checkbox"
+          />
+          <span>Adult Faith Formation</span><input type="checkbox" /><input
+            type="checkbox"
+          />
+          <span>Service & Outreach</span><input type="checkbox" /><input
+            type="checkbox"
+          />
+          <span>Youth Education</span><input type="checkbox" /><input
+            type="checkbox"
+          />
+          <span>Community Events</span><input type="checkbox" /><input
+            type="checkbox"
+          />
+          <span>Young Adults</span><input type="checkbox" /><input
+            type="checkbox"
+          />
+        </div>
+
+        <div class="nav">
+          <button onclick="prevPage()">Back</button>
+          <button onclick="nextPage()">Next</button>
+        </div>
+      </div>
+
+      <!-- PAGE 4 - COMMUNITY FEEDBACK -->
+      <div class="page">
+        <h2>Community & Growth</h2>
+
+        <label>How connected do you feel to the parish?</label>
+        <input type="text" />
+
+        <label>What programs would you like added?</label>
+        <textarea></textarea>
+
+        <label>How can Holy Trinity better serve families?</label>
+        <textarea></textarea>
+
+        <div class="nav">
+          <button onclick="prevPage()">Back</button>
+          <button onclick="nextPage()">Next</button>
+        </div>
+      </div>
+
+      <!-- PAGE 5 - COMMUNICATION & PRAYER -->
+      <div class="page">
+        <h2>Communication & Prayer</h2>
+
+        <label><input type="checkbox" /> Email Updates</label>
+        <label><input type="checkbox" /> Printed Bulletin</label>
+        <label><input type="checkbox" /> Website</label>
+
+        <label>Prayer intentions or comments:</label>
+        <textarea></textarea>
+
+        <div class="nav">
+          <button onclick="prevPage()">Back</button>
+          <button onclick="nextPage()">Finish</button>
+        </div>
+      </div>
+
+      <!-- PAGE 6 - THANK YOU -->
+      <div class="page">
+        <h2>Thank You!</h2>
+
+        <p>
+          Thank you for helping Holy Trinity grow as one parish family. Your
+          time and feedback are deeply appreciated.
+        </p>
+
+        <p class="footer-text">May God bless you and your family.</p>
+
+        <div class="nav">
+          <span></span>
+          <button onclick="restart()">Restart</button>
         </div>
       </div>
     </div>
+
+    <script>
+      let pages = document.querySelectorAll(".page");
+      let currentPage = 0;
+
+      function showPage() {
+        pages.forEach((p, i) =>
+          p.classList.toggle("active", i === currentPage)
+        );
+        handleAgeVisibility();
+      }
+
+      function nextPage() {
+        if (currentPage < pages.length - 1) {
+          currentPage++;
+          showPage();
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 0) {
+          currentPage--;
+          showPage();
+        }
+      }
+
+      function restart() {
+        currentPage = 0;
+        showPage();
+      }
+
+      function handleAgeVisibility() {
+        let selected = document.querySelector('input[name="age"]:checked');
+        document
+          .querySelectorAll(".age")
+          .forEach((div) => (div.style.display = "none"));
+        if (selected) {
+          document
+            .querySelectorAll("." + selected.value)
+            .forEach((div) => (div.style.display = "block"));
+        }
+      }
+    </script>
   </body>
 </html>
