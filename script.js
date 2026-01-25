@@ -36,8 +36,8 @@ function showPage(index) {
     updateProgress();
     handleAgeVisibility();
 
-    // Scroll to top of container
-    document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+    // Scroll to top of page for better context on mobile
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function updateProgress() {
