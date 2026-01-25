@@ -65,8 +65,13 @@
         </div>
 
         <div class="question">
-          <span class="question-label">Phone Number (Optional)</span>
-          <input type="tel" name="phone" placeholder="e.g., (555) 555-5555" />
+          <span class="question-label">Are you a registered member of Holy Trinity Parish?</span>
+          <div class="choice-group">
+            <label class="choice-item"><input type="radio" name="parish_member" value="yes"
+                required /><span>Yes</span></label>
+            <label class="choice-item"><input type="radio" name="parish_member" value="no"
+                required /><span>No</span></label>
+          </div>
         </div>
 
         <div class="nav">
@@ -462,6 +467,7 @@
         </p>
 
         <div id="ministry-details"></div>
+        <div id="registration-prompt"></div>
 
         <div class="footer-text" style="font-size: 1.1rem; color: var(--primary); text-align: center; border: none;">
           May God bless you and your family.

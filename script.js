@@ -15,7 +15,6 @@ const ministryDetails = {
         title: "Liturgical / Mass-Related",
         items: [
             "Mass Volunteer Roles (Lector, Usher, Altar Server, EMHC, Hospitality)",
-            "Ministry Scheduler Pro: Claim spots and receive reminders",
             "Gather The Children: Helpers, readers, or facilitators for Grades K-6 liturgy"
         ]
     },
@@ -301,6 +300,26 @@ function injectMinistryDetails() {
 }
 
 /**
+ * Registration Prompt Injection
+ */
+function injectRegistrationPrompt() {
+    const container = document.getElementById('registration-prompt');
+    if (!container) return;
+
+    if (state.surveyData.parish_member === 'no') {
+        container.innerHTML = `
+            <div class="ministry-details-area" style="border-left: 4px solid var(--primary); background: rgba(167, 59, 59, 0.02);">
+                <h4 style="color: var(--primary); margin-bottom: 12px; font-weight: 700;">Join Our Parish Family</h4>
+                <p style="margin-bottom: 16px;">We noticed you aren't a registered member yet. We'd love to have you officially join our family!</p>
+                <a href="https://htcc-mb.org/new-member" target="_blank" class="primary" style="display: inline-block; padding: 10px 24px; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">Register Online Here</a>
+            </div>
+        `;
+    } else {
+        container.innerHTML = '';
+    }
+}
+
+/**
  * Supabase Preparation
  */
 async function submitSurvey() {
@@ -308,6 +327,7 @@ async function submitSurvey() {
 
     // Inject details based on user selection
     injectMinistryDetails();
+    injectRegistrationPrompt();
 
     // Confetti effect (placeholder)
     triggerConfetti();
