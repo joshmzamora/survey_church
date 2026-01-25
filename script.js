@@ -322,8 +322,17 @@ function injectRegistrationPrompt() {
     }
 }
 
+// Replace these with your actual keys from Supabase settings (Project Settings > API)
+// For Vercel/Vite, use import.meta.env.VITE_SUPABASE_URL if you set them as Env Vars
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://yrtebhdtrgkhwznmjbad.supabase.co';
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P0-9SYK1jAeVccSs4Rdy7g_4xedoI_W';
+
+// Initialize Supabase Client
+const { createClient } = window.supabase || {};
+const supabase = createClient ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
 /**
- * Supabase Preparation
+ * Supabase Submission logic
  */
 async function submitSurvey() {
     console.log('Final Survey Data:', state.surveyData);
@@ -332,15 +341,35 @@ async function submitSurvey() {
     injectMinistryDetails();
     injectRegistrationPrompt();
 
-    // Confetti effect (placeholder)
+    // Trigger Success Effects
     triggerConfetti();
 
-    /**
-     * TODO: Implement Supabase submission
-     * const { data, error } = await supabase
-     *   .from('surveys')
-     *   .insert([state.surveyData]);
-     */
+    // Send to Supabase if client is ready
+    if (supabase) {
+        try {
+            const { error } = await supabase
+                .from('survey_responses')
+                .insert([
+                    {
+                        full_name: state.surveyData.full_name,
+                        email: state.surveyData.email,
+                        parish_member: state.surveyData.parish_member,
+                        age_group: state.surveyData.age,
+                        data: state.surveyData // Stores the complete response as JSON
+                    }
+                ]);
+
+            if (error) throw error;
+            console.log('✅ Successfully saved to Supabase');
+
+            // Clear local draft upon successful submission
+            localStorage.removeItem('ht_survey_data');
+        } catch (err) {
+            console.error('❌ Error saving to Supabase:', err.message);
+        }
+    } else {
+        console.warn('⚠️ Supabase client not initialized. Check your credentials.');
+    }
 }
 
 function triggerConfetti() {
