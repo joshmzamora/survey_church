@@ -14,6 +14,7 @@ const supabase = createClient ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 // State
 let allResponses = [];
 let filteredResponses = [];
+let currentView = 'individual'; // 'individual' or 'all'
 
 // DOM Elements
 const tableBody = document.getElementById('table-body');
@@ -29,6 +30,11 @@ const refreshBtn = document.getElementById('refresh-btn');
 const modal = document.getElementById('details-modal');
 const modalBody = document.getElementById('modal-body');
 const closeModal = document.querySelector('.close-modal');
+
+const individualView = document.getElementById('individual-view');
+const summaryView = document.getElementById('summary-view');
+const toggleIndividual = document.getElementById('toggle-individual');
+const toggleAll = document.getElementById('toggle-all');
 
 /**
  * Fetch data from Supabase
@@ -88,7 +94,19 @@ function applyFilters() {
         return matchesAge && matchesMember;
     });
 
-    renderTable();
+    renderCurrentView();
+}
+
+function renderCurrentView() {
+    if (currentView === 'individual') {
+        individualView.style.display = 'block';
+        summaryView.style.display = 'none';
+        renderTable();
+    } else {
+        individualView.style.display = 'none';
+        summaryView.style.display = 'block';
+        renderSummaryView();
+    }
 }
 
 function renderTable() {
@@ -133,6 +151,95 @@ function renderTable() {
 
         tr.addEventListener('click', () => showDetails(response));
         tableBody.appendChild(tr);
+    });
+}
+
+/**
+ * Summary View Rendering (Question-Centric)
+ */
+function renderSummaryView() {
+    summaryView.innerHTML = '';
+
+    if (filteredResponses.length === 0) {
+        summaryView.innerHTML = '<div class="loading-state">No responses found matching filters.</div>';
+        return;
+    }
+
+    const questions = [
+        { label: 'Are you a registered member of Holy Trinity Parish?', key: 'parish_member', type: 'choice' },
+        { label: 'Age Group', key: 'age_group', type: 'choice' },
+        { label: 'Interest: Liturgical / Mass-Related', key: 'cat_liturgical', type: 'choice' },
+        { label: 'Interest: Religious Ed & Faith Formation', key: 'cat_faith_formation', type: 'choice' },
+        { label: 'Interest: Youth Ministry', key: 'cat_youth', type: 'choice' },
+        { label: 'Interest: Groups & Service', key: 'cat_groups', type: 'choice' },
+        { label: 'Interest: Fundraising & Seasonal Events', key: 'cat_seasonal', type: 'choice' },
+        { label: 'Preferred: Email Updates', key: 'pref_email', type: 'choice' },
+        { label: 'Preferred: Printed Bulletin', key: 'pref_bulletin', type: 'choice' },
+        { label: 'Preferred: Parish Website', key: 'pref_website', type: 'choice' },
+        { label: 'Community Connection (1-5)', key: 'community_connection', type: 'choice' },
+        { label: 'Current Ministries', key: 'current_ministries', type: 'text' },
+        { label: 'New Program Ideas', key: 'community_additions', type: 'text' },
+        { label: 'Family Support Needs', key: 'community_families', type: 'text' },
+        { label: 'Adult: Family Spiritual Growth Suggestions', key: 'adult_family', type: 'text' },
+        { label: 'Young Adult: Biggest Faith Challenges', key: 'young_challenge', type: 'text' },
+        { label: 'Senior: Better Service Suggestions', key: 'senior_service', type: 'text' },
+        { label: 'Minor: Favorite Part of Parish Life', key: 'minor_fav', type: 'text' },
+        { label: 'Minor: mass Excitement (1-5)', key: 'minor_excitement', type: 'text' },
+        { label: 'Minor: Better Support Suggestions', key: 'minor_feedback', type: 'text' },
+        { label: 'Final Comments / Prayer Intentions', key: 'final_comments', type: 'text' }
+    ];
+
+    questions.forEach(q => {
+        const answers = filteredResponses.map(r => {
+            const val = r[q.key] !== null && r[q.key] !== undefined && r[q.key] !== '' && r[q.key] !== false
+                ? r[q.key]
+                : (r.data ? r.data[q.key] : null);
+            return val;
+        }).filter(v => v !== null && v !== undefined && v !== '' && v !== false);
+
+        if (answers.length === 0) return;
+
+        const card = document.createElement('div');
+        card.className = 'question-card';
+
+        let contentHtml = '';
+        if (q.type === 'choice') {
+            const counts = {};
+            answers.forEach(a => {
+                const label = a === true ? 'Yes' : (a === false ? 'No' : a);
+                counts[label] = (counts[label] || 0) + 1;
+            });
+
+            contentHtml = `
+                <div class="answers-list">
+                    ${Object.entries(counts).map(([label, count]) => `
+                        <div class="choice-row">
+                            <span class="choice-label">${label}</span>
+                            <div class="choice-stats">
+                                <span class="choice-count">${count}</span>
+                                <span class="choice-percent">(${Math.round((count / answers.length) * 100)}%)</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else {
+            contentHtml = `
+                <div class="text-answers">
+                    ${answers.map(a => `<div class="text-answer-item">${a}</div>`).join('')}
+                </div>
+            `;
+        }
+
+        card.innerHTML = `
+            <div class="question-title">
+                ${q.label}
+                <span class="response-count">${answers.length} responses</span>
+            </div>
+            ${contentHtml}
+        `;
+
+        summaryView.appendChild(card);
     });
 }
 
@@ -245,6 +352,20 @@ function showError(msg) {
 filterAge.addEventListener('change', applyFilters);
 filterMember.addEventListener('change', applyFilters);
 refreshBtn.addEventListener('click', fetchResponses);
+
+toggleIndividual.addEventListener('click', () => {
+    currentView = 'individual';
+    toggleIndividual.classList.add('active');
+    toggleAll.classList.remove('active');
+    renderCurrentView();
+});
+
+toggleAll.addEventListener('click', () => {
+    currentView = 'all';
+    toggleAll.classList.add('active');
+    toggleIndividual.classList.remove('active');
+    renderCurrentView();
+});
 
 closeModal.addEventListener('click', () => modal.classList.remove('active'));
 window.addEventListener('click', (e) => {
