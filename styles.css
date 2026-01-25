@@ -258,6 +258,95 @@ button:disabled {
     padding-top: 16px;
 }
 
+/* Scale/Rating UI */
+.scale-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.scale-item {
+    flex: 1;
+    position: relative;
+}
+
+.scale-item input {
+    position: absolute;
+    opacity: 0;
+}
+
+.scale-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.scale-item:hover .scale-box {
+    background: var(--bg);
+    border-color: var(--primary);
+}
+
+.scale-item input:checked+.scale-box {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Choice Group (Professional Choices) */
+.choice-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.choice-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.choice-item:hover {
+    background: #f8f9fa;
+    border-color: var(--primary);
+}
+
+.choice-item input {
+    margin-right: 12px;
+    accent-color: var(--primary);
+    width: 20px;
+    height: 20px;
+}
+
+.choice-item span {
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
 /* Ministry Page Refinement */
 .category-item {
     margin-bottom: 24px;

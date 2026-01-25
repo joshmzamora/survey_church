@@ -205,11 +205,31 @@ function validateCurrentPage() {
     let isValid = true;
 
     requiredInputs.forEach(input => {
-        if (!input.value.trim()) {
-            input.style.borderColor = '#e74c3c';
+        let inputIsValid = true;
+
+        if (input.type === 'radio') {
+            const name = input.name;
+            const checked = currentActivePage.querySelector(`input[name="${name}"]:checked`);
+            if (!checked) inputIsValid = false;
+        } else if (!input.value.trim()) {
+            inputIsValid = false;
+        }
+
+        if (!inputIsValid) {
             isValid = false;
+            if (input.type === 'radio') {
+                const label = input.closest('.question').querySelector('.question-label');
+                if (label) label.style.color = '#e74c3c';
+            } else {
+                input.style.borderColor = '#e74c3c';
+            }
         } else {
-            input.style.borderColor = 'var(--input-border)';
+            if (input.type === 'radio') {
+                const label = input.closest('.question').querySelector('.question-label');
+                if (label) label.style.color = 'var(--text)';
+            } else {
+                input.style.borderColor = 'var(--border)';
+            }
 
             // Basic email validation
             if (input.type === 'email' && !input.value.includes('@')) {

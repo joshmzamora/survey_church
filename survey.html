@@ -82,15 +82,9 @@
           <span class="question-label">What is your age group?</span>
           <div class="options-grid">
             <label class="option-card">
-              <input type="radio" name="age" value="child" />
+              <input type="radio" name="age" value="minor" />
               <div class="card-content">
-                <span>Child (0–10)</span>
-              </div>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="age" value="teen" />
-              <div class="card-content">
-                <span>Teen (11–17)</span>
+                <span>Child (0–17)</span>
               </div>
             </label>
             <label class="option-card">
@@ -120,67 +114,195 @@
         </div>
       </div>
 
-      <!-- PAGE 3 - FAITH & PARTICIPATION -->
+      <!-- PAGE 3 - PERSONALIZED QUESTIONS -->
       <div class="page">
-        <h2>Faith & Participation</h2>
+        <h2>Your Experience</h2>
+        <p>This section helps us understand your unique perspective as a member of our parish family.</p>
 
-        <!-- CHILD -->
-        <div class="age-section child">
+        <!-- MINOR (0-17) -->
+        <div class="age-section minor">
           <div class="question">
-            <span class="question-label">Favorite church activity?</span>
-            <input type="text" name="child_activity" placeholder="e.g., Singing, Drawing" />
+            <span class="question-label">On a scale of 1-5, how excited are you to come to Mass?</span>
+            <div class="scale-group">
+              <label class="scale-item"><input type="radio" name="minor_excitement" value="1" required />
+                <div class="scale-box">1</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="minor_excitement" value="2" />
+                <div class="scale-box">2</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="minor_excitement" value="3" />
+                <div class="scale-box">3</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="minor_excitement" value="4" />
+                <div class="scale-box">4</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="minor_excitement" value="5" />
+                <div class="scale-box">5</div>
+              </label>
+            </div>
+            <div class="scale-labels"><span>Not very</span><span>Very excited</span></div>
           </div>
+
           <div class="question">
-            <span class="question-label">Do you enjoy CCE or VBS?</span>
-            <input type="text" name="child_enjoys_cce" placeholder="Your thoughts..." />
+            <span class="question-label">What is your favorite part of parish life?</span>
+            <div class="choice-group">
+              <label class="choice-item"><input type="radio" name="minor_fav" value="cce" /><span>CCE or Youth
+                  Group</span></label>
+              <label class="choice-item"><input type="radio" name="minor_fav" value="serving" /><span>Serving at Mass
+                  (Altar Server, Choir)</span></label>
+              <label class="choice-item"><input type="radio" name="minor_fav" value="social" /><span>Social Events &
+                  Parish Festivals</span></label>
+              <label class="choice-item"><input type="radio" name="minor_fav" value="praying" /><span>Praying & Quiet
+                  time in Church</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="question-label">How could our parish family better support you?</span>
+            <textarea name="minor_feedback" placeholder="Share your thoughts..."></textarea>
           </div>
         </div>
 
-        <!-- TEEN -->
-        <div class="age-section teen">
-          <div class="question">
-            <span class="question-label">Are you involved in youth group?</span>
-            <input type="text" name="teen_youth_group" placeholder="Yes/No and which one" />
-          </div>
-          <div class="question">
-            <span class="question-label">What would make youth events better?</span>
-            <textarea name="teen_feedback" placeholder="Share your suggestions..."></textarea>
-          </div>
-        </div>
-
-        <!-- YOUNG ADULT -->
+        <!-- YOUNG ADULT (18-30) -->
         <div class="age-section young">
           <div class="question">
-            <span class="question-label">Would you attend young adult Bible studies?</span>
-            <input type="text" name="young_adult_bible" placeholder="Yes/No" />
+            <span class="question-label">How connected do you feel to the parish community? (1-5)</span>
+            <div class="scale-group">
+              <label class="scale-item"><input type="radio" name="young_connected" value="1" required />
+                <div class="scale-box">1</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="young_connected" value="2" />
+                <div class="scale-box">2</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="young_connected" value="3" />
+                <div class="scale-box">3</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="young_connected" value="4" />
+                <div class="scale-box">4</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="young_connected" value="5" />
+                <div class="scale-box">5</div>
+              </label>
+            </div>
+            <div class="scale-labels"><span>Searching</span><span>Deeply Rooted</span></div>
           </div>
+
           <div class="question">
-            <span class="question-label">Best time for church events?</span>
-            <input type="text" name="young_adult_time" placeholder="e.g., Weekends, Evenings" />
+            <span class="question-label">Would you be interested in peer-led small groups?</span>
+            <div class="choice-group">
+              <label class="choice-item"><input type="radio" name="young_groups" value="yes" /><span>Yes,
+                  definitely</span></label>
+              <label class="choice-item"><input type="radio" name="young_groups" value="no" /><span>No,
+                  thanks</span></label>
+              <label class="choice-item"><input type="radio" name="young_groups" value="info" /><span>I'd like more info
+                  first</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="question-label">What is the biggest challenge to practicing your faith currently?</span>
+            <textarea name="young_challenge" placeholder="Career, schedule, finding community, etc..."></textarea>
           </div>
         </div>
 
-        <!-- ADULT -->
+        <!-- ADULT (31-59) -->
         <div class="age-section adult">
           <div class="question">
-            <span class="question-label">How often do you attend Mass?</span>
-            <input type="text" name="adult_mass_freq" placeholder="e.g., Weekly, Monthly" />
+            <span class="question-label">How likely are you to recommend our parish to others? (1-10)</span>
+            <div class="scale-group">
+              <label class="scale-item"><input type="radio" name="adult_promo" value="1" required />
+                <div class="scale-box">1</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="2" />
+                <div class="scale-box">2</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="3" />
+                <div class="scale-box">3</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="4" />
+                <div class="scale-box">4</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="5" />
+                <div class="scale-box">5</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="6" />
+                <div class="scale-box">6</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="7" />
+                <div class="scale-box">7</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="8" />
+                <div class="scale-box">8</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="9" />
+                <div class="scale-box">9</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="adult_promo" value="10" />
+                <div class="scale-box">10</div>
+              </label>
+            </div>
+            <div class="scale-labels"><span>Unlikely</span><span>Highly Likely</span></div>
           </div>
+
           <div class="question">
-            <span class="question-label">Would you volunteer if time allowed?</span>
-            <input type="text" name="adult_volunteer" placeholder="Areas of interest..." />
+            <span class="question-label">What type of formation helps you most?</span>
+            <div class="choice-group">
+              <label class="choice-item"><input type="radio" name="adult_formation" value="bible" /><span>Bible
+                  Studies</span></label>
+              <label class="choice-item"><input type="radio" name="adult_formation" value="retreats" /><span>Retreats &
+                  Day events</span></label>
+              <label class="choice-item"><input type="radio" name="adult_formation" value="speakers" /><span>Guest
+                  Speakers</span></label>
+              <label class="choice-item"><input type="radio" name="adult_formation" value="online" /><span>Online
+                  Resources (FORMED, etc.)</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="question-label">How can we better support your family's spiritual growth?</span>
+            <textarea name="adult_family" placeholder="Your specific needs or suggestions..."></textarea>
           </div>
         </div>
 
-        <!-- SENIOR -->
+        <!-- SENIOR (60+) -->
         <div class="age-section senior">
           <div class="question">
-            <span class="question-label">Do you participate in prayer groups or service?</span>
-            <input type="text" name="senior_groups" placeholder="Share your experience..." />
+            <span class="question-label">How easy is it for you to access parish services? (1-5)</span>
+            <div class="scale-group">
+              <label class="scale-item"><input type="radio" name="senior_access" value="1" required />
+                <div class="scale-box">1</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="senior_access" value="2" />
+                <div class="scale-box">2</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="senior_access" value="3" />
+                <div class="scale-box">3</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="senior_access" value="4" />
+                <div class="scale-box">4</div>
+              </label>
+              <label class="scale-item"><input type="radio" name="senior_access" value="5" />
+                <div class="scale-box">5</div>
+              </label>
+            </div>
+            <div class="scale-labels"><span>Difficult</span><span>Very Easy</span></div>
           </div>
+
           <div class="question">
-            <span class="question-label">Transportation or accessibility needs?</span>
-            <input type="text" name="senior_needs" placeholder="How can we help?" />
+            <span class="question-label">I'm interested in sharing my experience as a mentor:</span>
+            <div class="choice-group">
+              <label class="choice-item"><input type="radio" name="senior_mentoring" value="yes" /><span>Yes, I'd love
+                  to</span></label>
+              <label class="choice-item"><input type="radio" name="senior_mentoring" value="no" /><span>Not at this
+                  time</span></label>
+              <label class="choice-item"><input type="radio" name="senior_mentoring" value="info" /><span>Tell me more
+                  about what's needed</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="question-label">How could the parish better serve you in this season of life?</span>
+            <textarea name="senior_service" placeholder="Transportation, home visits, spiritual support..."></textarea>
           </div>
         </div>
 
