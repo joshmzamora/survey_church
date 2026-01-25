@@ -204,30 +204,43 @@ function validateCurrentPage() {
     const requiredInputs = currentActivePage.querySelectorAll('[required]');
     let isValid = true;
 
+    // Reset previous errors
+    currentActivePage.querySelectorAll('.question').forEach(q => q.classList.remove('has-error'));
+
     requiredInputs.forEach(input => {
         let inputIsValid = true;
+        const questionDiv = input.closest('.question');
 
         if (input.type === 'radio') {
             const name = input.name;
             const checked = currentActivePage.querySelector(`input[name="${name}"]:checked`);
             if (!checked) inputIsValid = false;
+        } else if (input.type === 'checkbox') {
+            if (!input.checked) inputIsValid = false;
         } else if (!input.value.trim()) {
             inputIsValid = false;
         }
 
         if (!inputIsValid) {
             isValid = false;
-            if (input.type === 'radio') {
-                const label = input.closest('.question').querySelector('.question-label');
-                if (label) label.style.color = '#e74c3c';
-            } else {
+            if (questionDiv) {
+                questionDiv.classList.add('has-error');
+
+                // Add text cue if it doesn't exist
+                let errorCue = questionDiv.querySelector('.error-message');
+                if (!errorCue) {
+                    errorCue = document.createElement('div');
+                    errorCue.className = 'error-message';
+                    errorCue.innerText = 'This field is required. Please provide a response.';
+                    questionDiv.appendChild(errorCue);
+                }
+            }
+
+            if (input.type !== 'radio' && input.type !== 'checkbox') {
                 input.style.borderColor = '#e74c3c';
             }
         } else {
-            if (input.type === 'radio') {
-                const label = input.closest('.question').querySelector('.question-label');
-                if (label) label.style.color = 'var(--text)';
-            } else {
+            if (input.type !== 'radio' && input.type !== 'checkbox') {
                 input.style.borderColor = 'var(--border)';
             }
 
@@ -235,6 +248,16 @@ function validateCurrentPage() {
             if (input.type === 'email' && !input.value.includes('@')) {
                 input.style.borderColor = '#e74c3c';
                 isValid = false;
+                if (questionDiv) {
+                    questionDiv.classList.add('has-error');
+                    let errorCue = questionDiv.querySelector('.error-message');
+                    if (!errorCue) {
+                        errorCue = document.createElement('div');
+                        errorCue.className = 'error-message';
+                        questionDiv.appendChild(errorCue);
+                    }
+                    errorCue.innerText = 'Please enter a valid email address.';
+                }
             }
         }
     });

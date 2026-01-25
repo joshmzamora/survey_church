@@ -82,7 +82,7 @@
           <span class="question-label">What is your age group?</span>
           <div class="options-grid">
             <label class="option-card">
-              <input type="radio" name="age" value="minor" />
+              <input type="radio" name="age" value="minor" required />
               <div class="card-content">
                 <span>Child (0–17)</span>
               </div>
@@ -146,7 +146,7 @@
           <div class="question">
             <span class="question-label">What is your favorite part of parish life?</span>
             <div class="choice-group">
-              <label class="choice-item"><input type="radio" name="minor_fav" value="cce" /><span>CCE or Youth
+              <label class="choice-item"><input type="radio" name="minor_fav" value="cce" required /><span>CCE or Youth
                   Group</span></label>
               <label class="choice-item"><input type="radio" name="minor_fav" value="serving" /><span>Serving at Mass
                   (Altar Server, Choir)</span></label>
@@ -190,7 +190,7 @@
           <div class="question">
             <span class="question-label">Would you be interested in peer-led small groups?</span>
             <div class="choice-group">
-              <label class="choice-item"><input type="radio" name="young_groups" value="yes" /><span>Yes,
+              <label class="choice-item"><input type="radio" name="young_groups" value="yes" required /><span>Yes,
                   definitely</span></label>
               <label class="choice-item"><input type="radio" name="young_groups" value="no" /><span>No,
                   thanks</span></label>
@@ -247,7 +247,7 @@
           <div class="question">
             <span class="question-label">What type of formation helps you most?</span>
             <div class="choice-group">
-              <label class="choice-item"><input type="radio" name="adult_formation" value="bible" /><span>Bible
+              <label class="choice-item"><input type="radio" name="adult_formation" value="bible" required /><span>Bible
                   Studies</span></label>
               <label class="choice-item"><input type="radio" name="adult_formation" value="retreats" /><span>Retreats &
                   Day events</span></label>
@@ -291,7 +291,8 @@
           <div class="question">
             <span class="question-label">I'm interested in sharing my experience as a mentor:</span>
             <div class="choice-group">
-              <label class="choice-item"><input type="radio" name="senior_mentoring" value="yes" /><span>Yes, I'd love
+              <label class="choice-item"><input type="radio" name="senior_mentoring" value="yes" required /><span>Yes,
+                  I'd love
                   to</span></label>
               <label class="choice-item"><input type="radio" name="senior_mentoring" value="no" /><span>Not at this
                   time</span></label>
@@ -392,7 +393,7 @@
 
         <div class="question">
           <span class="question-label">How connected do you feel to the parish?</span>
-          <input type="text" name="community_connection" placeholder="e.g., Very connected, somewhat..." />
+          <input type="text" name="community_connection" placeholder="e.g., Very connected, somewhat..." required />
         </div>
 
         <div class="question">
@@ -419,7 +420,7 @@
           <span class="question-label">How do you prefer to stay informed?</span>
           <div class="options-grid">
             <label class="option-card">
-              <input type="checkbox" name="pref_email" />
+              <input type="checkbox" name="pref_email" required />
               <div class="card-content">
                 <span>Email Updates</span>
               </div>

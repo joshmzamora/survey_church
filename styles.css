@@ -244,6 +244,26 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Validation Errors */
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 8px;
+    display: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.question.has-error .error-message {
+    display: block;
+    opacity: 1;
+}
+
+.question.has-error .question-label {
+    color: #e74c3c;
+}
+
 /* Age specific sections */
 .age-section {
     display: none;
