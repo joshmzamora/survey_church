@@ -391,7 +391,38 @@ async function submitSurvey() {
                         email: state.surveyData.email,
                         parish_member: state.surveyData.parish_member,
                         age_group: state.surveyData.age,
-                        data: state.surveyData // Stores the complete response as JSON
+                        age: state.surveyData.age_custom, // if we had a custom age field
+
+                        // Ministry Categories
+                        cat_liturgical: state.surveyData.cat_liturgical,
+                        cat_faith_formation: state.surveyData.cat_faith_formation,
+                        cat_youth: state.surveyData.cat_youth,
+                        cat_groups: state.surveyData.cat_groups,
+                        cat_seasonal: state.surveyData.cat_seasonal,
+
+                        // Communication
+                        pref_email: state.surveyData.pref_email,
+                        pref_bulletin: state.surveyData.pref_bulletin,
+                        pref_website: state.surveyData.pref_website,
+
+                        // Age-Specific / Feedback
+                        minor_excitement: state.surveyData.child_excitement,
+                        minor_fav: state.surveyData.child_fav,
+                        minor_feedback: state.surveyData.child_feedback,
+
+                        young_challenge: state.surveyData.young_challenge,
+                        adult_family: state.surveyData.adult_family,
+                        senior_service: state.surveyData.senior_service,
+
+                        // Community
+                        community_connection: state.surveyData.community_connection,
+                        community_additions: state.surveyData.community_additions,
+                        community_families: state.surveyData.community_families,
+
+                        current_ministries: state.surveyData.current_ministries,
+                        final_comments: state.surveyData.final_comments,
+
+                        data: state.surveyData // Keep complete response as JSON
                     }
                 ]);
 

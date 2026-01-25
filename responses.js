@@ -189,10 +189,22 @@ function showDetails(response) {
     ];
 
     let html = '';
+    console.log('Generating modal details for:', response.full_name);
+
+    // Helper to get value from flat column OR nested data JSON
+    const getValue = (key) => {
+        if (response[key] !== null && response[key] !== undefined && response[key] !== '' && response[key] !== false) {
+            return response[key];
+        }
+        // Fallback to JSON data column
+        const nestedData = response.data || {};
+        return nestedData[key];
+    };
+
     groups.forEach(group => {
         // Only show group if it has at least one non-empty field
         const visibleFieldsHtml = group.fields.map(item => {
-            let val = response[item.key];
+            let val = getValue(item.key);
             if (val === null || val === undefined || val === '' || val === false) return null;
 
             if (item.format) val = item.format(val);
@@ -207,10 +219,15 @@ function showDetails(response) {
         }).filter(h => h !== null).join('');
 
         if (visibleFieldsHtml) {
+            console.log(`Adding group header: ${group.title}`);
             html += `<h3 class="detail-group-header">${group.title}</h3>`;
             html += visibleFieldsHtml;
         }
     });
+
+    if (!html) {
+        html = '<div class="loading-state">No detailed information available for this response.</div>';
+    }
 
     modalBody.innerHTML = html;
     modal.classList.add('active');
