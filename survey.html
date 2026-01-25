@@ -398,7 +398,24 @@
 
         <div class="question">
           <span class="question-label">How connected do you feel to the parish?</span>
-          <input type="text" name="community_connection" placeholder="e.g., Very connected, somewhat..." required />
+          <div class="scale-group">
+            <label class="scale-item"><input type="radio" name="community_connection" value="1" required />
+              <div class="scale-box">1</div>
+            </label>
+            <label class="scale-item"><input type="radio" name="community_connection" value="2" />
+              <div class="scale-box">2</div>
+            </label>
+            <label class="scale-item"><input type="radio" name="community_connection" value="3" />
+              <div class="scale-box">3</div>
+            </label>
+            <label class="scale-item"><input type="radio" name="community_connection" value="4" />
+              <div class="scale-box">4</div>
+            </label>
+            <label class="scale-item"><input type="radio" name="community_connection" value="5" />
+              <div class="scale-box">5</div>
+            </label>
+          </div>
+          <div class="scale-labels"><span>Searching</span><span>Deeply Rooted</span></div>
         </div>
 
         <div class="question">
