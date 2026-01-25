@@ -176,6 +176,11 @@ function renderSummaryView() {
         { label: 'Preferred: Email Updates', key: 'pref_email', type: 'choice' },
         { label: 'Preferred: Printed Bulletin', key: 'pref_bulletin', type: 'choice' },
         { label: 'Preferred: Parish Website', key: 'pref_website', type: 'choice' },
+        { label: 'Preferred: Social Media', key: 'pref_social_media', type: 'choice' },
+        { label: 'Preferred: Word of Mouth', key: 'pref_word_of_mouth', type: 'choice' },
+        { label: 'Preferred: Text Message', key: 'pref_text_message', type: 'choice' },
+        { label: 'Preferred: Other', key: 'pref_other', type: 'choice' },
+        { label: 'Other Communication Details', key: 'pref_other_details', type: 'text' },
         { label: 'Community Connection (1-5)', key: 'community_connection', type: 'choice' },
         { label: 'Current Ministries', key: 'current_ministries', type: 'text' },
         { label: 'New Program Ideas', key: 'community_additions', type: 'text' },
@@ -275,7 +280,12 @@ function showDetails(response) {
             fields: [
                 { label: 'Email Updates', key: 'pref_email' },
                 { label: 'Printed Bulletin', key: 'pref_bulletin' },
-                { label: 'Parish Website', key: 'pref_website' }
+                { label: 'Parish Website', key: 'pref_website' },
+                { label: 'Social Media', key: 'pref_social_media' },
+                { label: 'Word of Mouth', key: 'pref_word_of_mouth' },
+                { label: 'Text Message', key: 'pref_text_message' },
+                { label: 'Other', key: 'pref_other' },
+                { label: 'Other (Details)', key: 'pref_other_details' }
             ]
         },
         {

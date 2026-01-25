@@ -217,6 +217,19 @@ function setupListeners() {
             });
         }
     });
+
+    // Toggle "Other" Communication Details
+    const otherCheckbox = document.getElementById('pref_other_checkbox');
+    const otherDetailsContainer = document.getElementById('pref_other_details_container');
+    if (otherCheckbox && otherDetailsContainer) {
+        otherCheckbox.addEventListener('change', () => {
+            otherDetailsContainer.style.display = otherCheckbox.checked ? 'block' : 'none';
+            if (!otherCheckbox.checked) {
+                const otherInput = document.getElementById('pref_other_details');
+                if (otherInput) otherInput.value = '';
+            }
+        });
+    }
 }
 
 /**
@@ -404,6 +417,11 @@ async function submitSurvey() {
                         pref_email: state.surveyData.pref_email,
                         pref_bulletin: state.surveyData.pref_bulletin,
                         pref_website: state.surveyData.pref_website,
+                        pref_social_media: state.surveyData.pref_social_media,
+                        pref_word_of_mouth: state.surveyData.pref_word_of_mouth,
+                        pref_text_message: state.surveyData.pref_text_message,
+                        pref_other: state.surveyData.pref_other,
+                        pref_other_details: state.surveyData.pref_other_details,
 
                         // Age-Specific / Feedback
                         minor_excitement: state.surveyData.child_excitement,
