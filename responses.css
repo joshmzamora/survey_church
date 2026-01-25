@@ -157,18 +157,41 @@ tr:last-child td {
 
 .row-link {
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    position: relative;
 }
 
 .row-link:hover {
-    background: #f8f9fa;
+    background: #f1f3f5;
+}
+
+.row-link.is-new {
+    border-left: 4px solid #228be6;
+    background: rgba(34, 139, 230, 0.03);
+}
+
+.new-badge {
+    background: #228be6;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    margin-left: 8px;
+    vertical-align: middle;
 }
 
 .view-link {
-    color: var(--primary);
-    font-weight: 600;
-    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.8rem;
     text-decoration: none;
+    opacity: 0.6;
+}
+
+.row-link:hover .view-link {
+    color: var(--primary);
+    opacity: 1;
 }
 
 .loading-state {
@@ -252,8 +275,23 @@ tr:last-child td {
     overflow-y: auto;
 }
 
+.detail-group-header {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin: 32px 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(167, 59, 59, 0.1);
+    letter-spacing: 0.05em;
+}
+
+.detail-group-header:first-child {
+    margin-top: 0;
+}
+
 .detail-item {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .detail-label {

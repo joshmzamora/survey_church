@@ -101,19 +101,34 @@ function renderTable() {
 
     emptyState.style.display = 'none';
 
+    const now = new Date();
+    const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+
     filteredResponses.forEach(response => {
         const tr = document.createElement('tr');
         tr.className = 'row-link';
 
-        const date = new Date(response.created_at).toLocaleDateString();
+        const createdAt = new Date(response.created_at);
+        const isNew = createdAt > twentyFourHoursAgo;
+        if (isNew) tr.classList.add('is-new');
+
+        // Format: Jan 25, 2026
+        const dateStr = createdAt.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
 
         tr.innerHTML = `
-            <td>${date}</td>
+            <td>
+                ${dateStr}
+                ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+            </td>
             <td><strong>${response.full_name || 'N/A'}</strong></td>
             <td>${response.email || 'N/A'}</td>
             <td><span class="badge badge-member-${response.parish_member}">${response.parish_member === 'yes' ? 'Member' : 'Non-Member'}</span></td>
             <td><span class="badge badge-age">${response.age_group || 'N/A'}</span></td>
-            <td class="view-link">View Details</td>
+            <td class="view-link" style="text-align: right;">View Details →</td>
         `;
 
         tr.addEventListener('click', () => showDetails(response));
@@ -125,54 +140,76 @@ function renderTable() {
  * Show Details Modal
  */
 function showDetails(response) {
-    // List of all keys to show in order of importance
-    const keys = [
-        { label: 'Full Name', key: 'full_name' },
-        { label: 'Email', key: 'email' },
-        { label: 'Parish Member', key: 'parish_member' },
-        { label: 'Age Group', key: 'age_group' },
-        { label: 'Specific Age', key: 'age' },
-        { label: 'Submitted At', key: 'created_at', format: v => new Date(v).toLocaleString() },
-        { label: 'Current Ministries', key: 'current_ministries' },
-        { label: 'Faith Formation Interest', key: 'cat_faith_formation' },
-        { label: 'Liturgical Interest', key: 'cat_liturgical' },
-        { label: 'Youth Interest', key: 'cat_youth' },
-        { label: 'Groups Interest', key: 'cat_groups' },
-        { label: 'Seasonal/Events Interest', key: 'cat_seasonal' },
-        { label: 'Preferred: Email', key: 'pref_email' },
-        { label: 'Preferred: Bulletin', key: 'pref_bulletin' },
-        { label: 'Preferred: Website', key: 'pref_website' },
-        { label: 'Community Connection (Rank)', key: 'community_connection' },
-        { label: 'Community Additions', key: 'community_additions' },
-        { label: 'Family Support Needs', key: 'community_families' },
-        { label: 'Adult: Family Spiritual Growth', key: 'adult_family' },
-        { label: 'Young Adult: Challenges', key: 'young_challenge' },
-        { label: 'Minor: Favorite Part', key: 'minor_fav' },
-        { label: 'Minor: Excitement (Rank)', key: 'minor_excitement' },
-        { label: 'Minor: Feedback', key: 'minor_feedback' },
-        { label: 'Senior: Service Needs', key: 'senior_service' },
-        { label: 'Final Comments / Intentions', key: 'final_comments' }
+    const groups = [
+        {
+            title: "Basic Information",
+            fields: [
+                { label: 'Full Name', key: 'full_name' },
+                { label: 'Email', key: 'email' },
+                { label: 'Parish Member', key: 'parish_member' },
+                { label: 'Age Group', key: 'age_group' },
+                { label: 'Specific Age', key: 'age' },
+                { label: 'Submitted At', key: 'created_at', format: v => new Date(v).toLocaleString() }
+            ]
+        },
+        {
+            title: "Ministry Interests",
+            fields: [
+                { label: 'Current Ministries', key: 'current_ministries' },
+                { label: 'Faith Formation', key: 'cat_faith_formation' },
+                { label: 'Liturgical / Mass', key: 'cat_liturgical' },
+                { label: 'Youth Ministry', key: 'cat_youth' },
+                { label: 'Service Groups', key: 'cat_groups' },
+                { label: 'Seasonal/Events', key: 'cat_seasonal' }
+            ]
+        },
+        {
+            title: "Communication Preferences",
+            fields: [
+                { label: 'Email Updates', key: 'pref_email' },
+                { label: 'Printed Bulletin', key: 'pref_bulletin' },
+                { label: 'Parish Website', key: 'pref_website' }
+            ]
+        },
+        {
+            title: "Feedback & Community",
+            fields: [
+                { label: 'Community Connection (1-5)', key: 'community_connection' },
+                { label: 'New Program Ideas', key: 'community_additions' },
+                { label: 'Family Support Needs', key: 'community_families' },
+                { label: 'Family Growth (Adults)', key: 'adult_family' },
+                { label: 'Faith Challenges (Young Adults)', key: 'young_challenge' },
+                { label: 'Experience (Seniors)', key: 'senior_service' },
+                { label: 'Minor: Favorite Part', key: 'minor_fav' },
+                { label: 'Minor: Excitement (1-5)', key: 'minor_excitement' },
+                { label: 'Minor: Feedback', key: 'minor_feedback' },
+                { label: 'Prayer Intentions / Final Comments', key: 'final_comments' }
+            ]
+        }
     ];
 
     let html = '';
-    keys.forEach(item => {
-        let val = response[item.key];
+    groups.forEach(group => {
+        // Only show group if it has at least one non-empty field
+        const visibleFieldsHtml = group.fields.map(item => {
+            let val = response[item.key];
+            if (val === null || val === undefined || val === '' || val === false) return null;
 
-        // Skip if value is empty/null/false (especially for interests not selected)
-        if (val === null || val === undefined || val === '' || val === false) return;
+            if (item.format) val = item.format(val);
+            if (typeof val === 'boolean') val = val ? 'Yes' : 'No';
 
-        // Format if needed
-        if (item.format) val = item.format(val);
+            return `
+                <div class="detail-item">
+                    <span class="detail-label">${item.label}</span>
+                    <div class="detail-value">${val}</div>
+                </div>
+            `;
+        }).filter(h => h !== null).join('');
 
-        // Special handling for booleans (like checkbox interests)
-        if (typeof val === 'boolean') val = val ? 'Yes' : 'No';
-
-        html += `
-            <div class="detail-item">
-                <span class="detail-label">${item.label}</span>
-                <div class="detail-value">${val}</div>
-            </div>
-        `;
+        if (visibleFieldsHtml) {
+            html += `<h3 class="detail-group-header">${group.title}</h3>`;
+            html += visibleFieldsHtml;
+        }
     });
 
     modalBody.innerHTML = html;
