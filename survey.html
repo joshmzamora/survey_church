@@ -193,36 +193,69 @@
       <!-- PAGE 4 - MINISTRY -->
       <div class="page">
         <h2>Ministry Involvement</h2>
+        <p>Tell us which areas of parish life you are interested in. We'll provide more details about roles and programs
+          for your interests at the end of the survey.</p>
 
         <div class="question">
-          <span class="question-label">Current ministries you serve in:</span>
-          <textarea name="current_ministries" placeholder="List any ministries you are part of..."></textarea>
+          <span class="question-label">Any current ministries you serve in?</span>
+          <textarea name="current_ministries" placeholder="List any current roles..."></textarea>
         </div>
 
-        <p style="text-align: left; margin-bottom: 12px; font-weight: 700; color: var(--text);">Interest Areas</p>
-        <div class="ministry-grid">
-          <strong>Ministry</strong><strong style="text-align: center;">Serve</strong><strong
-            style="text-align: center;">Learn</strong>
+        <div class="question">
+          <span class="question-label">Select categories you'd like to learn more about:</span>
 
-          <span>Liturgy / Mass Support</span>
-          <input type="checkbox" name="interest_liturgy_serve" style="justify-self: center;" />
-          <input type="checkbox" name="interest_liturgy_learn" style="justify-self: center;" />
+          <div class="category-item">
+            <label>
+              <input type="checkbox" name="cat_liturgical" />
+              <div class="category-info">
+                <h3>Liturgical / Mass-Related</h3>
+                <p>Support the celebration of Mass through roles like lectors, ushers, altar servers, and children's
+                  liturgy programs.</p>
+              </div>
+            </label>
+          </div>
 
-          <span>Adult Faith Formation</span>
-          <input type="checkbox" name="interest_faith_serve" style="justify-self: center;" />
-          <input type="checkbox" name="interest_faith_learn" style="justify-self: center;" />
+          <div class="category-item">
+            <label>
+              <input type="checkbox" name="cat_faith_formation" />
+              <div class="category-info">
+                <h3>Religious Ed & Faith Formation</h3>
+                <p>Share your faith by teaching CCE, assisting with Confirmation, OCIA, or Vacation Bible School
+                  programs.</p>
+              </div>
+            </label>
+          </div>
 
-          <span>Service & Outreach</span>
-          <input type="checkbox" name="interest_service_serve" style="justify-self: center;" />
-          <input type="checkbox" name="interest_service_learn" style="justify-self: center;" />
+          <div class="category-item">
+            <label>
+              <input type="checkbox" name="cat_youth" />
+              <div class="category-info">
+                <h3>Youth Ministry</h3>
+                <p>Get involved with programs supporting our high school (HSM) and junior high (Shine) youth groups.</p>
+              </div>
+            </label>
+          </div>
 
-          <span>Youth Education</span>
-          <input type="checkbox" name="interest_youth_serve" style="justify-self: center;" />
-          <input type="checkbox" name="interest_youth_learn" style="justify-self: center;" />
+          <div class="category-item">
+            <label>
+              <input type="checkbox" name="cat_groups" />
+              <div class="category-info">
+                <h3>Groups & Service</h3>
+                <p>Join service organizations like CDA, Legion of Mary, ACTS, or our Young Adults group.</p>
+              </div>
+            </label>
+          </div>
 
-          <span>Young Adults</span>
-          <input type="checkbox" name="interest_young_serve" style="justify-self: center;" />
-          <input type="checkbox" name="interest_young_learn" style="justify-self: center;" />
+          <div class="category-item">
+            <label>
+              <input type="checkbox" name="cat_seasonal" />
+              <div class="category-info">
+                <h3>Fundraising & Seasonal Events</h3>
+                <p>Help with special events like Lent Fish Fries, the Christmas Pageant, or the Fundraising Committee.
+                </p>
+              </div>
+            </label>
+          </div>
         </div>
 
         <div class="nav">
@@ -304,6 +337,8 @@
         <p>
           Your feedback has been recorded. Thank you for helping Holy Trinity grow as one parish family.
         </p>
+
+        <div id="ministry-details"></div>
 
         <div class="footer-text" style="font-size: 1.1rem; color: var(--primary); text-align: center; border: none;">
           May God bless you and your family.

@@ -258,32 +258,151 @@ button:disabled {
     padding-top: 16px;
 }
 
-/* Ministry Grid */
+/* Ministry Page Refinement */
+.category-item {
+    margin-bottom: 24px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.category-item label {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.category-item input[type="checkbox"] {
+    height: 22px;
+    width: 22px;
+    margin-top: 2px;
+    accent-color: var(--primary);
+    flex-shrink: 0;
+}
+
+.category-info h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.category-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    text-align: left;
+}
+
+/* Post-Submission Details Area */
+.ministry-details-area {
+    margin-top: 32px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.detail-section {
+    margin-bottom: 24px;
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.detail-section h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.detail-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.detail-list li {
+    font-size: 0.95rem;
+    color: var(--text);
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary);
+}
+
+.ministry-section {
+    margin-bottom: 32px;
+}
+
+.ministry-section h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(167, 59, 59, 0.1);
+}
+
 .ministry-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 3fr 1fr 1fr;
+    gap: 12px;
     align-items: center;
-    margin-top: 12px;
+    margin-bottom: 16px;
 }
 
 .ministry-grid strong {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     color: var(--text-muted);
     letter-spacing: 0.05em;
     padding-bottom: 8px;
 }
 
-.ministry-grid span {
-    font-size: 0.95rem;
-    padding: 8px 0;
+.ministry-item {
+    display: contents;
 }
 
-.ministry-grid input[type="checkbox"] {
-    height: 18px;
-    width: 18px;
+.ministry-item span {
+    font-size: 0.95rem;
+    padding: 8px 0;
+    line-height: 1.4;
+}
+
+.ministry-item input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
     accent-color: var(--primary);
+    justify-self: center;
+    cursor: pointer;
+}
+
+.ministry-description {
+    grid-column: 1 / -1;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: -8px;
+    margin-bottom: 12px;
+    padding-left: 0;
+}
+
+@media (max-width: 480px) {
+    .ministry-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 8px;
+    }
+
+    .ministry-item span {
+        font-size: 0.85rem;
+    }
 }
 
 /* Success State */
