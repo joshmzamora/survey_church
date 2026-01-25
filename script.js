@@ -207,6 +207,9 @@ function validateCurrentPage() {
     currentActivePage.querySelectorAll('.question').forEach(q => q.classList.remove('has-error'));
 
     requiredInputs.forEach(input => {
+        // Only validate visible inputs (ignore hidden age sections)
+        if (input.offsetParent === null && input.type !== 'hidden') return;
+
         let inputIsValid = true;
         const questionDiv = input.closest('.question');
 
