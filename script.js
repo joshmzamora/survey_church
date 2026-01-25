@@ -189,9 +189,33 @@ function setupListeners() {
         });
     });
 
-    // Monitoring all inputs for auto-save
+    // Monitoring all inputs for auto-save and live validation clearing
     document.querySelectorAll('input, textarea, select').forEach(input => {
-        input.addEventListener('change', collectData);
+        input.addEventListener('change', () => {
+            collectData();
+            // Clear error on interact
+            const questionDiv = input.closest('.question');
+            if (questionDiv) {
+                questionDiv.classList.remove('has-error');
+                if (input.type !== 'radio' && input.type !== 'checkbox') {
+                    input.style.borderColor = 'var(--border)';
+                }
+            }
+        });
+
+        // Add input listener for text inputs to clear error while typing
+        if (input.type === 'text' || input.type === 'email' || input.tagName === 'TEXTAREA') {
+            input.addEventListener('input', () => {
+                const questionDiv = input.closest('.question');
+                if (questionDiv && questionDiv.classList.contains('has-error')) {
+                    // Only clear if basic non-empty check passes
+                    if (input.value.trim()) {
+                        questionDiv.classList.remove('has-error');
+                        input.style.borderColor = 'var(--border)';
+                    }
+                }
+            });
+        }
     });
 }
 
@@ -202,13 +226,16 @@ function validateCurrentPage() {
     const currentActivePage = pages[state.currentPage];
     const requiredInputs = currentActivePage.querySelectorAll('[required]');
     let isValid = true;
+    let firstError = null;
 
     // Reset previous errors
     currentActivePage.querySelectorAll('.question').forEach(q => q.classList.remove('has-error'));
 
     requiredInputs.forEach(input => {
         // Only validate visible inputs (ignore hidden age sections)
-        if (input.offsetParent === null && input.type !== 'hidden') return;
+        // Check both offsetParent and visibility/display for robustness
+        const isVisible = input.offsetParent !== null || input.type === 'hidden';
+        if (!isVisible) return;
 
         let inputIsValid = true;
         const questionDiv = input.closest('.question');
@@ -218,6 +245,9 @@ function validateCurrentPage() {
             const checked = currentActivePage.querySelector(`input[name="${name}"]:checked`);
             if (!checked) inputIsValid = false;
         } else if (input.type === 'checkbox') {
+            // Specialized logic for checkbox groups: if multiple are required, at least one must be checked
+            // But here we'll just respect the individual required attribute for now, 
+            // unless it's the communication preferences on Page 6.
             if (!input.checked) inputIsValid = false;
         } else if (!input.value.trim()) {
             inputIsValid = false;
@@ -227,6 +257,7 @@ function validateCurrentPage() {
             isValid = false;
             if (questionDiv) {
                 questionDiv.classList.add('has-error');
+                if (!firstError) firstError = questionDiv;
 
                 // Add text cue if it doesn't exist
                 let errorCue = questionDiv.querySelector('.error-message');
@@ -247,11 +278,12 @@ function validateCurrentPage() {
             }
 
             // Basic email validation
-            if (input.type === 'email' && !input.value.includes('@')) {
+            if (input.type === 'email' && input.value.trim() && !input.value.includes('@')) {
                 input.style.borderColor = '#e74c3c';
                 isValid = false;
                 if (questionDiv) {
                     questionDiv.classList.add('has-error');
+                    if (!firstError) firstError = questionDiv;
                     let errorCue = questionDiv.querySelector('.error-message');
                     if (!errorCue) {
                         errorCue = document.createElement('div');
@@ -263,6 +295,10 @@ function validateCurrentPage() {
             }
         }
     });
+
+    if (!isValid && firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 
     return isValid;
 }
