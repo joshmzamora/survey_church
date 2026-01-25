@@ -1,342 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Holy Trinity Parish Survey</title>
 
-    <style>
-      body {
-        font-family: "Georgia", serif;
-        background: #f5f4ef;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holy Trinity Parish Survey | Strengthening Our Church Family</title>
 
-      .container {
-        max-width: 720px;
-        margin: 40px auto;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        padding: 30px;
-        overflow: hidden;
-      }
+  <!-- Meta Tags -->
+  <meta name="description"
+    content="Help Holy Trinity grow as one parish family. Your feedback helps us improve our ministries and community.">
 
-      h2 {
-        text-align: center;
-        color: #3b4a3f;
-      }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+    rel="stylesheet">
 
-      .page {
-        display: none;
-        animation: fadeSlide 0.5s ease;
-      }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css">
 
-      .page.active {
-        display: block;
-      }
+  <!-- Supabase Client (Ready for integration) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
 
-      @keyframes fadeSlide {
-        from {
-          opacity: 0;
-          transform: translateX(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
+<body>
+  <div class="container">
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
 
-      .question {
-        margin: 18px 0;
-      }
-
-      label {
-        display: block;
-        margin: 6px 0;
-        cursor: pointer;
-      }
-
-      input[type="text"],
-      textarea {
-        width: 100%;
-        padding: 8px;
-        margin-top: 6px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: 1fr auto auto;
-        gap: 10px;
-        align-items: center;
-      }
-
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-      }
-
-      button {
-        background: #3b4a3f;
-        color: white;
-        border: none;
-        padding: 10px 18px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background: #2f3c34;
-      }
-
-      .footer-text {
-        font-style: italic;
-        text-align: center;
-        margin-top: 15px;
-        color: #666;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <!-- PAGE 0 - WELCOME -->
-      <div class="page active">
-        <h2>Welcome</h2>
-        <p>
-          Welcome to the Holy Trinity Catholic Church Parish Survey. Your
-          feedback helps strengthen our parish family and improve our
-          ministries.
-        </p>
-        <p>This survey takes about 3–5 minutes and is confidential.</p>
-        <p class="footer-text">
-          “For where two or three are gathered in my name, there am I in the
-          midst of them.” – Matthew 18:20
-        </p>
-        <div class="nav">
-          <span></span>
-          <button onclick="nextPage()">Begin</button>
-        </div>
+    <!-- PAGE 0 - WELCOME -->
+    <div class="page active">
+      <h2>Welcome</h2>
+      <p>
+        Welcome to the Holy Trinity Catholic Church Parish Survey. Your
+        feedback helps strengthen our parish family and improve our
+        ministries.
+      </p>
+      <p>This survey takes about 3–5 minutes and is confidential.</p>
+      <div class="footer-text">
+        “For where two or three are gathered in my name, there am I in the
+        midst of them.” – Matthew 18:20
       </div>
-
-      <!-- PAGE 1 - AGE GROUP -->
-      <div class="page">
-        <h2>Age Group</h2>
-
-        <div class="question">
-          <label
-            ><input type="radio" name="age" value="child" /> Child (0–10)</label
-          >
-          <label
-            ><input type="radio" name="age" value="teen" /> Teen (11–17)</label
-          >
-          <label
-            ><input type="radio" name="age" value="young" /> Young Adult
-            (18–30)</label
-          >
-          <label
-            ><input type="radio" name="age" value="adult" /> Adult
-            (31–59)</label
-          >
-          <label
-            ><input type="radio" name="age" value="senior" /> Senior
-            (60+)</label
-          >
-        </div>
-
-        <div class="nav">
-          <button onclick="prevPage()">Back</button>
-          <button onclick="nextPage()">Next</button>
-        </div>
-      </div>
-
-      <!-- PAGE 2 - AGE SPECIFIC -->
-      <div class="page">
-        <h2>Faith & Participation</h2>
-
-        <!-- CHILD -->
-        <div class="age child">
-          <label>Favorite church activity?</label>
-          <input type="text" />
-          <label>Do you enjoy CCE or VBS?</label>
-          <input type="text" />
-        </div>
-
-        <!-- TEEN -->
-        <div class="age teen">
-          <label>Are you involved in youth group?</label>
-          <input type="text" />
-          <label>What would make youth events better?</label>
-          <textarea></textarea>
-        </div>
-
-        <!-- YOUNG ADULT -->
-        <div class="age young">
-          <label>Would you attend young adult Bible studies?</label>
-          <input type="text" />
-          <label>Best time for church events?</label>
-          <input type="text" />
-        </div>
-
-        <!-- ADULT -->
-        <div class="age adult">
-          <label>How often do you attend Mass?</label>
-          <input type="text" />
-          <label>Would you volunteer if time allowed?</label>
-          <input type="text" />
-        </div>
-
-        <!-- SENIOR -->
-        <div class="age senior">
-          <label
-            >Do you participate in prayer groups or service ministries?</label
-          >
-          <input type="text" />
-          <label>Transportation or accessibility needs?</label>
-          <input type="text" />
-        </div>
-
-        <div class="nav">
-          <button onclick="prevPage()">Back</button>
-          <button onclick="nextPage()">Next</button>
-        </div>
-      </div>
-
-      <!-- PAGE 3 - MINISTRY INVOLVEMENT -->
-      <div class="page">
-        <h2>Ministry Involvement</h2>
-
-        <label>Current ministries you serve in:</label>
-        <textarea></textarea>
-
-        <p><strong>Interest Areas</strong></p>
-        <div class="grid">
-          <strong>Ministry</strong><strong>Serve</strong><strong>Learn</strong>
-
-          <span>Liturgy / Mass Support</span><input type="checkbox" /><input
-            type="checkbox"
-          />
-          <span>Adult Faith Formation</span><input type="checkbox" /><input
-            type="checkbox"
-          />
-          <span>Service & Outreach</span><input type="checkbox" /><input
-            type="checkbox"
-          />
-          <span>Youth Education</span><input type="checkbox" /><input
-            type="checkbox"
-          />
-          <span>Community Events</span><input type="checkbox" /><input
-            type="checkbox"
-          />
-          <span>Young Adults</span><input type="checkbox" /><input
-            type="checkbox"
-          />
-        </div>
-
-        <div class="nav">
-          <button onclick="prevPage()">Back</button>
-          <button onclick="nextPage()">Next</button>
-        </div>
-      </div>
-
-      <!-- PAGE 4 - COMMUNITY FEEDBACK -->
-      <div class="page">
-        <h2>Community & Growth</h2>
-
-        <label>How connected do you feel to the parish?</label>
-        <input type="text" />
-
-        <label>What programs would you like added?</label>
-        <textarea></textarea>
-
-        <label>How can Holy Trinity better serve families?</label>
-        <textarea></textarea>
-
-        <div class="nav">
-          <button onclick="prevPage()">Back</button>
-          <button onclick="nextPage()">Next</button>
-        </div>
-      </div>
-
-      <!-- PAGE 5 - COMMUNICATION & PRAYER -->
-      <div class="page">
-        <h2>Communication & Prayer</h2>
-
-        <label><input type="checkbox" /> Email Updates</label>
-        <label><input type="checkbox" /> Printed Bulletin</label>
-        <label><input type="checkbox" /> Website</label>
-
-        <label>Prayer intentions or comments:</label>
-        <textarea></textarea>
-
-        <div class="nav">
-          <button onclick="prevPage()">Back</button>
-          <button onclick="nextPage()">Finish</button>
-        </div>
-      </div>
-
-      <!-- PAGE 6 - THANK YOU -->
-      <div class="page">
-        <h2>Thank You!</h2>
-
-        <p>
-          Thank you for helping Holy Trinity grow as one parish family. Your
-          time and feedback are deeply appreciated.
-        </p>
-
-        <p class="footer-text">May God bless you and your family.</p>
-
-        <div class="nav">
-          <span></span>
-          <button onclick="restart()">Restart</button>
-        </div>
+      <div class="nav">
+        <span></span>
+        <button class="primary" data-nav="next">Begin Your Survey</button>
       </div>
     </div>
 
-    <script>
-      let pages = document.querySelectorAll(".page");
-      let currentPage = 0;
+    <!-- PAGE 1 - AGE GROUP -->
+    <div class="page">
+      <h2>About You</h2>
+      <div class="question">
+        <span class="question-label">What is your age group?</span>
+        <div class="options-grid">
+          <label class="option-card">
+            <input type="radio" name="age" value="child" />
+            <div class="card-content">
+              <span>Child (0–10)</span>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="age" value="teen" />
+            <div class="card-content">
+              <span>Teen (11–17)</span>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="age" value="young" />
+            <div class="card-content">
+              <span>Young Adult (18–30)</span>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="age" value="adult" />
+            <div class="card-content">
+              <span>Adult (31–59)</span>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="age" value="senior" />
+            <div class="card-content">
+              <span>Senior (60+)</span>
+            </div>
+          </label>
+        </div>
+      </div>
 
-      function showPage() {
-        pages.forEach((p, i) =>
-          p.classList.toggle("active", i === currentPage)
-        );
-        handleAgeVisibility();
-      }
+      <div class="nav">
+        <button class="secondary" data-nav="prev">Back</button>
+        <button class="primary" data-nav="next">Continue</button>
+      </div>
+    </div>
 
-      function nextPage() {
-        if (currentPage < pages.length - 1) {
-          currentPage++;
-          showPage();
-        }
-      }
+    <!-- PAGE 2 - FAITH & PARTICIPATION -->
+    <div class="page">
+      <h2>Faith & Participation</h2>
 
-      function prevPage() {
-        if (currentPage > 0) {
-          currentPage--;
-          showPage();
-        }
-      }
+      <!-- CHILD -->
+      <div class="age-section child">
+        <div class="question">
+          <span class="question-label">Favorite church activity?</span>
+          <input type="text" name="child_activity" placeholder="e.g., Singing, Drawing" />
+        </div>
+        <div class="question">
+          <span class="question-label">Do you enjoy CCE or VBS?</span>
+          <input type="text" name="child_enjoys_cce" placeholder="Your thoughts..." />
+        </div>
+      </div>
 
-      function restart() {
-        currentPage = 0;
-        showPage();
-      }
+      <!-- TEEN -->
+      <div class="age-section teen">
+        <div class="question">
+          <span class="question-label">Are you involved in youth group?</span>
+          <input type="text" name="teen_youth_group" placeholder="Yes/No and which one" />
+        </div>
+        <div class="question">
+          <span class="question-label">What would make youth events better?</span>
+          <textarea name="teen_feedback" placeholder="Share your suggestions..."></textarea>
+        </div>
+      </div>
 
-      function handleAgeVisibility() {
-        let selected = document.querySelector('input[name="age"]:checked');
-        document
-          .querySelectorAll(".age")
-          .forEach((div) => (div.style.display = "none"));
-        if (selected) {
-          document
-            .querySelectorAll("." + selected.value)
-            .forEach((div) => (div.style.display = "block"));
-        }
-      }
-    </script>
-  </body>
+      <!-- YOUNG ADULT -->
+      <div class="age-section young">
+        <div class="question">
+          <span class="question-label">Would you attend young adult Bible studies?</span>
+          <input type="text" name="young_adult_bible" placeholder="Yes/No" />
+        </div>
+        <div class="question">
+          <span class="question-label">Best time for church events?</span>
+          <input type="text" name="young_adult_time" placeholder="e.g., Weekends, Evenings" />
+        </div>
+      </div>
+
+      <!-- ADULT -->
+      <div class="age-section adult">
+        <div class="question">
+          <span class="question-label">How often do you attend Mass?</span>
+          <input type="text" name="adult_mass_freq" placeholder="e.g., Weekly, Monthly" />
+        </div>
+        <div class="question">
+          <span class="question-label">Would you volunteer if time allowed?</span>
+          <input type="text" name="adult_volunteer" placeholder="Areas of interest..." />
+        </div>
+      </div>
+
+      <!-- SENIOR -->
+      <div class="age-section senior">
+        <div class="question">
+          <span class="question-label">Do you participate in prayer groups or service?</span>
+          <input type="text" name="senior_groups" placeholder="Share your experience..." />
+        </div>
+        <div class="question">
+          <span class="question-label">Transportation or accessibility needs?</span>
+          <input type="text" name="senior_needs" placeholder="How can we help?" />
+        </div>
+      </div>
+
+      <div class="nav">
+        <button class="secondary" data-nav="prev">Back</button>
+        <button class="primary" data-nav="next">Continue</button>
+      </div>
+    </div>
+
+    <!-- PAGE 3 - MINISTRY -->
+    <div class="page">
+      <h2>Ministry Involvement</h2>
+
+      <div class="question">
+        <span class="question-label">Current ministries you serve in:</span>
+        <textarea name="current_ministries" placeholder="List any ministries you are part of..."></textarea>
+      </div>
+
+      <p style="text-align: left; margin-bottom: 12px; font-weight: 700;">Interest Areas</p>
+      <div class="ministry-grid">
+        <strong>Ministry</strong><strong style="text-align: center;">Serve</strong><strong
+          style="text-align: center;">Learn</strong>
+
+        <span>Liturgy / Mass Support</span>
+        <input type="checkbox" name="interest_liturgy_serve" style="justify-self: center;" />
+        <input type="checkbox" name="interest_liturgy_learn" style="justify-self: center;" />
+
+        <span>Adult Faith Formation</span>
+        <input type="checkbox" name="interest_faith_serve" style="justify-self: center;" />
+        <input type="checkbox" name="interest_faith_learn" style="justify-self: center;" />
+
+        <span>Service & Outreach</span>
+        <input type="checkbox" name="interest_service_serve" style="justify-self: center;" />
+        <input type="checkbox" name="interest_service_learn" style="justify-self: center;" />
+
+        <span>Youth Education</span>
+        <input type="checkbox" name="interest_youth_serve" style="justify-self: center;" />
+        <input type="checkbox" name="interest_youth_learn" style="justify-self: center;" />
+
+        <span>Young Adults</span>
+        <input type="checkbox" name="interest_young_serve" style="justify-self: center;" />
+        <input type="checkbox" name="interest_young_learn" style="justify-self: center;" />
+      </div>
+
+      <div class="nav">
+        <button class="secondary" data-nav="prev">Back</button>
+        <button class="primary" data-nav="next">Continue</button>
+      </div>
+    </div>
+
+    <!-- PAGE 4 - COMMUNITY -->
+    <div class="page">
+      <h2>Community & Growth</h2>
+
+      <div class="question">
+        <span class="question-label">How connected do you feel to the parish?</span>
+        <input type="text" name="community_connection" placeholder="e.g., Very connected, somewhat..." />
+      </div>
+
+      <div class="question">
+        <span class="question-label">What programs would you like added?</span>
+        <textarea name="community_additions" placeholder="Share your ideas..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="question-label">How can Holy Trinity better serve families?</span>
+        <textarea name="community_families" placeholder="Family-specific feedback..."></textarea>
+      </div>
+
+      <div class="nav">
+        <button class="secondary" data-nav="prev">Back</button>
+        <button class="primary" data-nav="next">Continue</button>
+      </div>
+    </div>
+
+    <!-- PAGE 5 - COMMUNICATION -->
+    <div class="page">
+      <h2>Communication & Prayer</h2>
+
+      <div class="question">
+        <span class="question-label">How do you prefer to stay informed?</span>
+        <div class="options-grid">
+          <label class="option-card">
+            <input type="checkbox" name="pref_email" />
+            <div class="card-content">
+              <span>Email Updates</span>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="checkbox" name="pref_bulletin" />
+            <div class="card-content">
+              <span>Printed Bulletin</span>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="checkbox" name="pref_website" />
+            <div class="card-content">
+              <span>Parish Website</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question-label">Prayer intentions or final comments:</span>
+        <textarea name="final_comments" placeholder="Include any intentions for the priest to pray for..."></textarea>
+      </div>
+
+      <div class="nav">
+        <button class="secondary" data-nav="prev">Back</button>
+        <button class="primary" data-nav="next">Finish & Submit</button>
+      </div>
+    </div>
+
+    <!-- PAGE 6 - THANK YOU -->
+    <div class="page">
+      <h2 style="font-family: 'Playfair Display', serif;">Thank You!</h2>
+      <p>
+        Your feedback has been recorded. Thank you for helping Holy Trinity grow as one parish family. Your
+        time and feedback are deeply appreciated.
+      </p>
+
+      <div class="footer-text" style="font-size: 1.2rem; color: var(--primary);">
+        May God bless you and your family.
+      </div>
+
+      <div class="nav">
+        <span></span>
+        <button class="secondary" onclick="restart()">Submit Another Response</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="/script.js"></script>
+</body>
+
 </html>
