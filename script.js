@@ -50,7 +50,6 @@ const ministryDetails = {
             "Fundraising Committee: Planning Mardi Gras and other events",
             "Lent Activities: Fish Fries and service projects",
             "Children's Christmas Pageant & Parade Team roles",
-            "St. Joseph's Altar & Blue Mass support"
         ]
     }
 };
