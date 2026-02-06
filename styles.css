@@ -526,3 +526,42 @@ button:disabled {
     margin-bottom: 16px;
     display: block;
 }
+
+/* Website Promo Box */
+.website-promo-box {
+    margin-top: 24px;
+    padding: 24px;
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.website-promo-box h3 {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.website-promo-box p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.primary-link-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color var(--transition-fast);
+}
+
+.primary-link-btn:hover {
+    background-color: var(--primary-hover);
+}

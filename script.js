@@ -403,7 +403,6 @@ async function submitSurvey() {
                         email: state.surveyData.email,
                         parish_member: state.surveyData.parish_member,
                         age_group: state.surveyData.age,
-                        age: state.surveyData.age_custom, // if we had a custom age field
 
                         // Ministry Categories
                         cat_liturgical: state.surveyData.cat_liturgical,
